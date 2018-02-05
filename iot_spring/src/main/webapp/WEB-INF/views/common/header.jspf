@@ -1,0 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+<body>
+	<div class="nav">
+		<ul>
+			<li class="home"><a href="${root}/">Home</a></li>
+			<li class="login"><a href="${root}/emp/list">Emp List</a></li>
+      </ul>
+	</div>
+</body>

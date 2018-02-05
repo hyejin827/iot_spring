@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<script src="/spring/resources/ui/js/jquery-3.2.1.js"></script>
+<script>
+var gObj;
+$(document).ready(function(){
+	gObj = new gridObj("testDiv");
+	gObj.setColumns(['이름','나이']);
+	$.ajax({
+		url : "/spring/h3",
+		success : function(res){
+			gObj.load(res);
+			gObj.init();
+		},
+		error : function(xhr){
+			alert(2);
+			alert(xhr.responseText);
+		}
+	})
+//	gObj.load(JSON.stringify(list));
+	alert("환영합니당!");
+});
+
+</script>
+<body>
+<div id="testDiv"></div>
+</body>
+</html>
