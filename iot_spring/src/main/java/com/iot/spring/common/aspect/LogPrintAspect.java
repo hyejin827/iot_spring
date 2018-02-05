@@ -25,7 +25,6 @@ import com.iot.spring.vo.NaverMsg;
 public class LogPrintAspect {
 
 	@Autowired
-	@Qualifier("ntdao")
 	private NaverTransDAO ntdao;
 	
 	private static final Logger log = LoggerFactory.getLogger(LogPrintAspect.class);
@@ -44,9 +43,8 @@ public class LogPrintAspect {
 		} catch (Throwable e) {
 			log.error("error => {}", e);
 			ModelAndView mav = new ModelAndView("error/error");
-			ObjectMapper om = new ObjectMapper();
-			NaverMsg nm = om.readValue(e.getMessage(), NaverMsg.class);
-			mav.addObject("errorMsg", ntdao.getText(nm.getMessage().getResult().getTranslatedText()));
+			
+			mav.addObject("errorMsg", ntdao.getText(e.getMessage()));
 			return mav;
 		}
 		log.info("@Around end, RunTime : {} ms", (System.currentTimeMillis()-startTime));

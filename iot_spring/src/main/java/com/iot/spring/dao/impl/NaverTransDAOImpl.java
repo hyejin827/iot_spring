@@ -8,11 +8,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.stereotype.Repository;
 
 import com.iot.spring.dao.NaverTransDAO;
+import com.iot.spring.vo.NaverMsg;
 
-@Repository("ntdao")
 public class NaverTransDAOImpl implements NaverTransDAO {
 
 	private String url;
@@ -72,7 +73,9 @@ public class NaverTransDAOImpl implements NaverTransDAO {
 	             response.append(inputLine);
 	         }
 	         br.close();
-	         return response.toString();
+	         ObjectMapper om = new ObjectMapper();
+	         NaverMsg nm = om.readValue(response.toString(), NaverMsg.class);
+	         return nm.getMessage().getResult().getTranslatedText();
 	     } catch (Exception e) {
 	         System.out.println(e);
 	     } finally {
