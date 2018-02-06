@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+	
 <header class="header">
   <div class="burger">
     <div class="burger__patty"></div>
@@ -16,10 +16,10 @@
       <li class="menu__item"><a href="${root}/" class="menu__link">Home</a></li>
       <li class="menu__item"><a href="${root}/emp/list" class="menu__link">Emp List</a></li>
       <li class="menu__item">
-        <a href="https://twitter.com/ettrics" target="_blank" class="menu__link menu__link--social"><i class="fa fa-twitter"></i></a>
+        <a href="" target="_blank" class="menu__link menu__link--social"><i class="fa fa-twitter"></i></a>
       </li>
       <li class="menu__item">
-        <a href="https://dribbble.com/ettrics" target="_blank" class="menu__link menu__link--social">
+        <a href="" target="_blank" class="menu__link menu__link--social">
           <i class="fa fa-dribbble"></i></a>
       </li>
     </ul>

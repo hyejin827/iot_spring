@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -84,10 +85,18 @@ public class EmpController {
 	
 	@RequestMapping(value="/update", method=RequestMethod.GET)
 	public String updateEmp(
-			@Valid Emp empDTO,
+			@RequestParam Map<String,Object> map,
 			Model m) {
 		
-		log.info("update result => {}", es.updateEmp(empDTO));
+		log.info("update result => {}", es.updateEmp(map));
 		return "emp/jstl_list";
+	}
+	
+	@RequestMapping(value="/delete", method=RequestMethod.GET)
+	public String deleteEmp(
+			@RequestParam Map<String,Object> map,
+			Model m) {
+		log.info("delete result => {}", es.deleteEmp(map));
+		return getEmpList(m);
 	}
 }

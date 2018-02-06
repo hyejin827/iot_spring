@@ -14,9 +14,13 @@
 		values (#{empName}, #{empSal})
 	</select>
 	
-	<select id="updateEmp" parameterType="emp">
+	<select id="updateEmp" parameterType="map">
 		update emp set empName=#{empName}, empSal=#{empSal}
 		where empNo=#{empNo}
+	</select>
+	
+	<select id="deleteEmp" parameterType="emp">
+		delete from emp where empName=#{empName}
 	</select>
 	
 </mapper>

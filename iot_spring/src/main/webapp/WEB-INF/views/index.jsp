@@ -7,6 +7,9 @@
 <title>${title}</title>
 </head>
 <body>
+<br>
+<div align="center">
 <a href="${root}/emp/list">사원리스트</a>
+</div>
 </body>
 </html>

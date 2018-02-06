@@ -7,14 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<section id="site-wrapper">
-<section id="site-canvas">
-<section class="content">
-<section id="site-menu">
-<section class="site-menu-content">
-
-</section>
-</section>
+<br>
+<div align="center">
 <div id="gridbox" style="width:410px;height:400px;"></div>
 <script>
 	var mygrid = new dhtmlXGridObject('gridbox');
@@ -35,8 +29,6 @@
 	au.send();
 	
 </script>
-</section>
-</section>
-</section>
+</div>
 </body>
 </html>

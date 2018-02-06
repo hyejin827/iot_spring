@@ -7,12 +7,16 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h2>사원정보 입력</h2>
+<br>
+<br>
+<div align="center">
+<h2>사원정보 입력</h2><br>
 <form:form commandName="empDTO" action="${root}/emp/insert" method="get">
 이름 : <input type="text" name="empName" id="empName" value="${empDTO.empName}"><br>
-월급 : <input type="text" name="empSal" id="empSal" value="${empDTO.empSal}"><br>
+월급 : <input type="text" name="empSal" id="empSal" value="${empDTO.empSal}"><br><br>
 <button>사원정보 추가</button>
 <a href="${root}/emp/list"><button type="button">리스트돌아가기</button></a>
 </form:form>
+</div>
 </body>
 </html>

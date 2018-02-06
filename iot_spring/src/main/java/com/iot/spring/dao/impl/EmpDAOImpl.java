@@ -40,16 +40,17 @@ public class EmpDAOImpl implements EmpDAO {
 	}
 
 	@Override
-	public int updateEmp(Emp empDTO) {
+	public int updateEmp(Map<String,Object> map) {
 		SqlSession ss = ssf.openSession();
-		int result = ss.update("emp.updateEmp", empDTO);
+		int result = ss.update("emp.updateEmp", map);
 		return result;
 	}
 
 	@Override
-	public int deleteEmp(Map<String,String> map) {
-		
-		return 0;
+	public int deleteEmp(Map<String,Object> map) {
+		SqlSession ss = ssf.openSession();
+		int result = ss.delete("emp.deleteEmp", map);
+		return result;
 	}
 
 }
