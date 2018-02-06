@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<div class="container">
 <table class="table table-bordered">
 	<thead>
 		<tr>
@@ -27,6 +28,7 @@
 			</tr>
 		</c:forEach>
 </table>
+</div>
 <a href="${pPath}/emp/write"><button>사원정보추가</button></a>
 <a href="${pPath}/emp/view"><button>상세정보보기</button></a>
 </body>
