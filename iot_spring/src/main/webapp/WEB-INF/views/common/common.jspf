@@ -18,5 +18,6 @@
 <link rel="stylesheet" type="text/css" href="${rPath}/ui/css/header.css"/>
 <link rel="stylesheet" type="text/css" href="${rPath}/ui/css/bootstrap-theme.min.css${ver}"/>
 <link rel="stylesheet" type="text/css" href="${rPath}/ui/css/bootstrap-table.css${ver}"/>
+<link rel="stylesheet" type="text/css" href="${rPath}/dx/fonts/font_roboto/roboto.css${ver}"/>
 <link rel="stylesheet" type="text/css" href="${rPath}/dx/dhtmlx.css${ver}"/>
 <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
