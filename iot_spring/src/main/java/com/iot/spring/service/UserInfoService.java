@@ -7,8 +7,9 @@ import com.iot.spring.vo.UserInfo;
 
 public interface UserInfoService {
 
-	public List<UserInfo> getUserInfoList(UserInfo ui);
+	public List<UserInfo> getUserInfoList();
 	public void getUserInfo(Map<String, Object> map, UserInfo ui);
 	public void insertUserInfo(Map<String, Object> map, UserInfo ui);
 	public void deleteUserInfo(Map<String, Object> map, UserInfo ui);
+	public void updateUserInfo(Map<String, Object> map, UserInfo ui);
 }

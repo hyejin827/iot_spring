@@ -17,9 +17,8 @@ public class UserInfoServiceImpl implements UserInfoService {
 	private UserInfoDAO uidao;
 	
 	@Override
-	public List<UserInfo> getUserInfoList(UserInfo ui) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<UserInfo> getUserInfoList() {
+		return uidao.selectUserInfoList();
 	}
 
 	@Override
@@ -52,4 +51,13 @@ public class UserInfoServiceImpl implements UserInfoService {
 		}
 	}
 
+	@Override
+	public void updateUserInfo(Map<String, Object> map, UserInfo ui) {
+		int result = uidao.updateUserInfo(map, ui);
+		if(result==1) {
+			map.put("msg", "수정 성공!");
+		}else {
+			map.put("msg", "수정 실패!");
+		}
+	}
 }

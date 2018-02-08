@@ -18,9 +18,11 @@ public class UserInfoDAOImpl implements UserInfoDAO {
 	private SqlSessionFactory ssf;
 	
 	@Override
-	public List<UserInfo> selectUserInfoList(UserInfo ui) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<UserInfo> selectUserInfoList() {
+		SqlSession ss = ssf.openSession();
+		List<UserInfo> userInfoList = ss.selectList("user_info.selectUserList");
+		ss.close();
+		return userInfoList;
 	}
 
 	@Override
@@ -42,7 +44,15 @@ public class UserInfoDAOImpl implements UserInfoDAO {
 	public int deleteUserInfo(Map<String, Object> map, UserInfo ui) {
 		SqlSession ss= ssf.openSession();
 		int result = ss.delete("user_info.deleteUser", ui);
+		ss.close();
 		return result;
 	}
 
+	@Override
+	public int updateUserInfo(Map<String, Object> map, UserInfo ui) {
+		SqlSession ss = ssf.openSession();
+		int result = ss.update("user_info.updateUser", ui);
+		ss.close();
+		return result;
+	}
 }

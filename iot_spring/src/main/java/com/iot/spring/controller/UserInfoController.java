@@ -1,5 +1,7 @@
 package com.iot.spring.controller;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.codehaus.jackson.map.ObjectMapper;
@@ -7,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.iot.spring.service.UserInfoService;
 import com.iot.spring.vo.ConnectionInfoVO;
+import com.iot.spring.vo.Emp;
 import com.iot.spring.vo.UserInfo;
 
 @Controller
@@ -26,6 +30,14 @@ public class UserInfoController {
 	
 	@Autowired
 	private UserInfoService uis;
+	
+	@RequestMapping(value="/list", method=RequestMethod.GET)
+	public @ResponseBody Map getUserInfoList(Model m) {
+		List<UserInfo> userInfoList = uis.getUserInfoList();
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("userInfoList", userInfoList);
+		return map;
+	}
 	
 	@RequestMapping(value="/insert", method=RequestMethod.POST)
 	public @ResponseBody Map<String,Object> insertUserInfo(@RequestParam Map<String,Object> map) {
@@ -40,6 +52,14 @@ public class UserInfoController {
 		UserInfo ui = om.convertValue(map, UserInfo.class);
 		log.info("UserInfo => {}", ui);
 		uis.deleteUserInfo(map, ui);
+		return map;
+	}
+	
+	@RequestMapping(value="/update", method=RequestMethod.POST)
+	public @ResponseBody Map<String,Object> updateUserInfo(@RequestParam Map<String,Object> map) {
+		UserInfo ui = om.convertValue(map, UserInfo.class);
+		log.info("UserInfo => {}", ui);
+		uis.updateUserInfo(map, ui);
 		return map;
 	}
 	
