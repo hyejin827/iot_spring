@@ -23,9 +23,13 @@ public class UserInfoServiceImpl implements UserInfoService {
 	}
 
 	@Override
-	public UserInfo getUserInfo(UserInfo ui) {
-		// TODO Auto-generated method stub
-		return null;
+	public void getUserInfo(Map<String, Object> map, UserInfo ui) {
+	//	int result = uidao.selectUserInfo(ui);
+//		if(result==1) {
+//			map.put("msg", "회원가입 성공!");
+//		}else {
+//			map.put("msg", "회원가입 실패!");
+//		}
 	}
 
 	@Override

@@ -25,8 +25,10 @@ public class UserInfoDAOImpl implements UserInfoDAO {
 
 	@Override
 	public UserInfo selectUserInfo(UserInfo ui) {
-		// TODO Auto-generated method stub
-		return null;
+		SqlSession ss = ssf.openSession();
+		UserInfo uif = ss.selectOne("user_info.selectUser", ui);
+		ss.close();
+		return uif;
 	}
 
 	@Override

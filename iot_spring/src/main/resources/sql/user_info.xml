@@ -3,8 +3,14 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="user_info">
-	<select id="selectUser" parameterType="ui" resultType="ui">
+	<select id="selectUserList" parameterType="ui" resultType="ui">
 		select uNo,uName,uId,uPwd,uEmail from user_info
+	</select>
+	
+	<select id="selectUser" parameterType="ui" resultType="ui">
+		select uNo,uName,uId,uPwd,uEmail 
+		from user_info
+		where uId=#{uId} and uPwd=#{uPwd}
 	</select>
 	
 	<insert id="insertUser" parameterType="ui">

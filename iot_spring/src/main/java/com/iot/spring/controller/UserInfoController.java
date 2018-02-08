@@ -42,4 +42,12 @@ public class UserInfoController {
 		uis.deleteUserInfo(map, ui);
 		return map;
 	}
+	
+	@RequestMapping(value="/login", method=RequestMethod.POST)
+	public @ResponseBody Map<String,Object> loginUserInfo(@RequestParam Map<String,Object> map) {
+		UserInfo ui = om.convertValue(map, UserInfo.class);
+		log.info("UserInfo => {}", ui);
+		uis.insertUserInfo(map, ui);
+		return map;
+	}
 }
