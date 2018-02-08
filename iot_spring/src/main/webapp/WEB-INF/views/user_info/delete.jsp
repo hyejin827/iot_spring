@@ -24,39 +24,31 @@
 <script>
 	var winF, popW;
 	$(document).ready(function(){
-		winF = new dhtmlXWindows();
-		winF.attachViewportTo("winVP");
+		winF = new dhtmlXWindows(); //A base for a set of new windows
+		winF.attachViewportTo("winVP"); //attaches a viewport to an existing object on the page
 		popW = winF.createWindow("win1",20,30,300,300);//(id,x,y,width,height)
-		popW.hide();
-		popW.setText("폼태그");
+		popW.setText("삭제!");
 		
 		var formObj = [
-						{type:"settings", offsetTop:12, name:"connectionInfo", labelAlign:"left"},
-						{type:"input", name:"ciName", label:"커넥션이름", required:true}, 
-						{type:"input", name:"ciUrl", label:"접속URL", required:true},
-						{type:"input", name:"ciPort", label:"PORT번호", validate:"ValidInteger", required:true},
-						{type:"input", name:"ciDatabase", label:"데이타베이스", required : true}, 
-						{type:"input", name:"ciUser", label:"유저", required : true},
-						{type:"password", name:"ciPwd", label:"비밀번호", required : true},
-						{type:"input", name:"ciEtc", label:"기타"},
-						{type:"input", name:"uId", label:"유저아이디", required : true},
-						{type:"block", blockOffset:0, list:[
-							{type:"button", name:"saveBtn", value:"저장"},
-							{type:"newcolumn"},
-							{type:"button", name:"cancelBtn", value:"취소"}
-						]}
-					];
-		//var setting = {type:"settings", position:"label-left", labelWidth:100, inputWidth:120};
-		//formObj.push(setting);
+			{type:"input", name:"uName", label:"이름", required : true},
+			{type:"input", name:"uId", label:"아이디", required : true},
+			{type:"password", name:"uPwd", label:"비밀번호", required : true},
+			{type:"input", name:"uEmail", label:"이메일", required : true},
+			{type:"block", blockOffset:0, list:[
+				{type:"button", name:"deleteBtn", value:"삭제"},
+				{type:"newcolumn"},
+				{type:"button", name:"cancelBtn", value:"취소"}
+			]}
+		];
 		
 		var form = popW.attachForm(formObj,true);
 		
 		form.attachEvent("onButtonClick", function(id){
-			if(id=="saveBtn"){
+			if(id=="deleteBtn"){
 				if(form.validate()){
-					form.send("${root}/connection/insert", "post", callback);
+					form.send("${root}/userInfo/delete", "post", callback);
 				}
-			}else if(id=="cancelBtn"){
+			} else if(id=="cancelBtn"){
 				form.clear();
 			}
 		});
@@ -81,7 +73,5 @@
 		<button onclick="setPopW(true)">떠라 창</button>
 		<button onclick="setPopW(false)">숨어라 창</button>
 	</div>
-	
-<a href="${root}/path/user_info/dx_form">회원가입으로 가자</a>
 </body>
 </html>

@@ -32,6 +32,28 @@ function callback(res){
 	dbTree.enableDragAndDrop(true);
 }
 
+function callback2(res){
+	var res = JSON.parse(res);
+	alert(res.msg);
+}
+
+var formObj = [
+	{type:"settings", offsetTop:12, name:"connectionInfo", labelAlign:"left"},
+	{type:"input", name:"ciName", label:"커넥션이름", required:true}, 
+	{type:"input", name:"ciUrl", label:"접속URL", required:true},
+	{type:"input", name:"ciPort", label:"PORT번호", validate:"ValidInteger", required:true},
+	{type:"input", name:"ciDatabase", label:"데이타베이스", required : true}, 
+	{type:"input", name:"ciUser", label:"유저", required : true},
+	{type:"password", name:"ciPwd", label:"비밀번호", required : true},
+	{type:"input", name:"ciEtc", label:"기타"},
+	{type:"input", name:"uId", label:"유저아이디", required : true},
+	{type:"block", blockOffset:0, list:[
+		{type:"button", name:"saveBtn", value:"저장"},
+		{type:"newcolumn"},
+		{type:"button", name:"cancelBtn", value:"취소"}
+	]}
+];
+
 dhtmlxEvent(window,"load",function(){
 	bodyLayout = new dhtmlXLayoutObject(document.body,"3L");
 	aLay = bodyLayout.cells("a");
@@ -41,7 +63,10 @@ dhtmlxEvent(window,"load",function(){
 	aToolbar.addButton("adddb",1,"add Connector");
 	aToolbar.addButton("condb",2,"Connection");
 	aToolbar.attachEvent("onClick",function(id){
-		alert(id);
+		if("adddb"){
+			aToolbar.attachForm(formObj,true);
+			aToolbar.setCallbackSuccess(callback2);
+		}		
 	})
 	var au = new AjaxUtil("${root}/connection/db_list",null,"get");
 	au.setCallbackSuccess(callback);

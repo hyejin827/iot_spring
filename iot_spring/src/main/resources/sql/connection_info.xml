@@ -10,8 +10,35 @@
 	</select>
 	
 	<select id="insertConnectionInfo" parameterType="ci">
-		insert into connection_info(ciNo, ciName, ciUrl, ciPort, ciDatabase, ciUser, ciPwd, ciEtc)
-		values (#{ciNo}, #{ciName}, #{ciUrl}, #{ciPort}, #{ciDatabase}, #{ciUser}, #{ciPwd}, #{ciEtc})
+		insert into connection_info(ciNo, ciName, ciUrl, ciPort, ciDatabase, ciUser, ciPwd, ciEtc, uId)
+		values (#{ciNo}, #{ciName}, #{ciUrl}, #{ciPort}, #{ciDatabase}, #{ciUser}, #{ciPwd}, #{ciEtc}, #{uId})
 	</select>
 	
+	<select id="selectDatabase" resultType="map">
+		show databases
+	</select>
+	
+	<select id="selectTable" resultType="tvo" parameterType="string">
+		select table_name as tableName,
+		table_comment as tableComment,
+		(data_length+index_length)/1024 as tableSize 
+		from information_schema.tables
+		where table_schema=#{dbName}
+		and table_type='BASE TABLE';
+	</select>
+	
+	<select id="selectColumn" resultType="cvo" parameterType="string">
+		select column_name as cName, 
+		column_default as cDefault, 
+		is_nullable as nullable, 
+		data_type as dType, 
+		character_maximum_length as mLength, 
+		column_type as cType, 
+		column_key as cKey, 
+		column_comment as cComment
+		from information_schema.columns
+		where table_schema=database()
+		and table_name=#{tName}
+		order by ordinal_position;
+	</select>
 </mapper>
