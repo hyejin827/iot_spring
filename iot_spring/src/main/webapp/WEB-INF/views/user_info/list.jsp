@@ -21,9 +21,12 @@
 	mygrid.setColumnIds("uNo,uName,uId,uPwd,uEmail,admin");
 	mygrid.init(); //실행이됨
 	
-	var au = new AjaxUtil("${root}/userInfo/list",null,"GET",null); //"json"
+	var au = new AjaxUtil("${root}/userInfo/list",null,"GET","json"); //"json"
 	function callback(res){
 		mygrid.parse({data:res},"js"); //res.userInfoList
+		for(var i=1;i<=res.length;i++){
+			myGrid.setRowId(i,"id"+i);
+		}
 	}
 	au.setCallbackSuccess(callback);
 	au.send();
