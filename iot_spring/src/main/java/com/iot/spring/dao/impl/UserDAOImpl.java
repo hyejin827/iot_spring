@@ -8,8 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.iot.spring.dao.UserDAO;
-import com.iot.spring.vo.Emp;
-import com.iot.spring.vo.User;
+import com.iot.spring.vo.UserInfo;
 
 @Repository
 public class UserDAOImpl implements UserDAO {
@@ -18,11 +17,34 @@ public class UserDAOImpl implements UserDAO {
 	private SqlSessionFactory ssf;
 	
 	@Override
-	public List<User> selectUserList() {
+	public UserInfo selectUserInfo(UserInfo ui) {
 		SqlSession ss = ssf.openSession();
-		List<User> userList = ss.selectList("user.selectUser");
+		UserInfo rUi = ss.selectOne("user_info.selectUser", ui);
 		ss.close();
-		return userList;
+		return rUi;
 	}
 
+	@Override
+	public int insertUser(UserInfo ui) {
+		SqlSession ss = ssf.openSession();
+		int rUi = ss.insert("user_info.insertUser", ui);
+		ss.close();
+		return rUi;
+	}
+
+	@Override
+	public int checkUserInfo(UserInfo ui) {
+		SqlSession ss = ssf.openSession();
+		int result = ss.selectOne("user_info.checkUser", ui);
+		ss.close();
+		return result;
+	}
+
+	@Override
+	public List<UserInfo> selectUserInfoList(UserInfo ui) {
+		SqlSession ss = ssf.openSession();
+		List<UserInfo> result = ss.selectList("user_info.selectUser", ui);
+		ss.close();
+		return result;
+	}
 }

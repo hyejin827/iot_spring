@@ -10,14 +10,27 @@
 	</select>
 	
 	<select id="selectUser" parameterType="ui" resultType="ui">
-		select uNo,uName,uId,uPwd,uEmail 
+		select uNo,uName,uId,uPwd,uEmail,admin
 		from user_info
-		where uId=#{uId} and uPwd=#{uPwd}
+		where 1=1
+		<if test="uId!=null">
+			and uId=#{uId}
+		</if>
+		<if test="uPwd!=null">
+			and uPwd=#{uPwd}
+		</if>
 	</select>
 	
-	<insert id="insertUser" parameterType="ui">
-		insert into user_info(uNo,uName,uId,uPwd,uEmail)
-		values(#{uNo},#{uName},#{uId},#{uPwd},#{uEmail})
+	<select id="checkUser" parameterType="ui" resultType="int">
+		select 
+		count(1)
+		from user_info
+		where uId=#{uId}
+	</select>
+	
+	<insert id="insertUser" parameterType="map">
+		insert into user_info(uNo,uName,uId,uPwd,uEmail,admin)
+		values(#{uNo},#{uName},#{uId},#{uPwd},#{uEmail},#{admin})
 	</insert>
 	
 	<insert id="deleteUser" parameterType="ui">

@@ -4,9 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-<title>${title}</title>
+<title>회원가입</title>
 </head>
+<body>
+
 <style>
    div#winVP {
       position: relative;
@@ -20,7 +21,7 @@
    $(document).ready(function(){
       winF = new dhtmlXWindows();
       winF.attachViewportTo("winVP");
-      popW = winF.createWindow("win1",20,30,320,300);
+      popW = winF.createWindow("win1",20,30,320,440);
       //popW.hide(); 
       popW.button("close").hide();
       popW.button("minmax").hide();
@@ -30,25 +31,30 @@
       winF.window("win1").centerOnScreen();
       winF.window("win1").denyMove();
       winF.window("win1").denyResize();
-      
       var formObj = [
 			{type:"settings", offsetTop:12,name:"connectionInfo",labelAlign:"left"},
+			{type:"input",name:"uName", label:"이름 : ",required:true},
 			{type:"input",name:"uId", label:"아이디 : ",required:true},
 			{type:"password",name:"uPwd", label:"비밀번호 : ",required:true},
+			{type:"input",name:"uEmail", label:"이메일 : ",required:true},
+			{type:"radio",name:"admin", label:"관리자권한 : ",list:[
+				{type:"radio", name:"admin",value:"1",label:"예",checked:true},
+				{type:"radio", name:"admin",value:"0",label:"아니오"},
+			]},
 			{type: "block", blockOffset: 0, list: [
-			{type: "button", name:"saveBtn",value: "로그인"},
+			{type: "button", name:"saveBtn",value: "회원가입"},
 			{type: "newcolumn"},
 			{type: "button", name:"cancelBtn",value: "취소"},
 			{type: "newcolumn"},
-			{type: "button", name:"signupBtn",value: "회원가입"}
-     	]}
-	];
+			{type: "button", name:"signupBtn",value: "돌아가기"}
+     		]}
+		];
 		var form = popW.attachForm(formObj, true);
 
 		form.attachEvent("onButtonClick", function(id) {
 			if (id == "saveBtn") {
 				if (form.validate()) {
-					form.send("${root}/userInfo/login", "post", callback);
+					form.send("${root}/userInfo/signup", "post", callback);
 				}
 			} else if (id == "cancelBtn") {
 				form.clear();
@@ -56,17 +62,17 @@
 
 			}
 		});
-		if(${isLogin}){
+		/* if(${isLogin}){
 		  popW.hide();
-		}
+		} */
 	})
 
 	function callback(loader, res) {
 		if (loader.xmlDoc.status == 200) {
 			var res = JSON.parse(res);
 			alert(res.msg);
-			if (res.loginOk) {
-				location.href = "${root}/path/user_info/list";
+			if (res.signupOk) {
+				location.href = "${root}/";
 			}
 		} else {
 			console.log(res);
@@ -83,5 +89,6 @@
 </script>
 <body>
    <div id="winVP"></div>
+</body>
 </body>
 </html>

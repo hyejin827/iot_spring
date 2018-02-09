@@ -6,23 +6,24 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
+<body>
+<br>
 <div align="center">
-<div id="gridbox" style="width:550;height:400px;"></div>
+<div id="gridbox" style="width:650;height:400px;"></div>
 <script>
 	var mygrid = new dhtmlXGridObject('gridbox');
 	mygrid.setImagePath("${dPath}/imgs/");
-	mygrid.setHeader("번호,이름,아이디,비밀번호,이메일");
-	mygrid.setInitWidths("50,100,100,100,200");
-	mygrid.setColAlign("left,left,left,left,left");
-	mygrid.setColTypes("ro,ed,ro,ed,ed");
-	mygrid.setColSorting("int,str,str,str,str");
-	mygrid.setColumnIds("uNo,uName,uId,uPwd,uEmail");
+	mygrid.setHeader("번호,이름,아이디,비밀번호,이메일,관리자모드");
+	mygrid.setInitWidths("50,100,100,100,200,100");
+	mygrid.setColAlign("left,left,left,left,left,left");
+	mygrid.setColTypes("ro,ed,ro,ed,ed,ro");
+	mygrid.setColSorting("int,str,str,str,str,str");
+	mygrid.setColumnIds("uNo,uName,uId,uPwd,uEmail,admin");
 	mygrid.init(); //실행이됨
 	
-	var au = new AjaxUtil("${root}/userInfo/list",null,"GET","json");
+	var au = new AjaxUtil("${root}/userInfo/list",null,"GET",null); //"json"
 	function callback(res){
-		alert(res);
-		mygrid.parse({data:res.userInfoList},"js");
+		mygrid.parse({data:res},"js"); //res.userInfoList
 	}
 	au.setCallbackSuccess(callback);
 	au.send();

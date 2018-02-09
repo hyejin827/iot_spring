@@ -7,6 +7,7 @@ public class UserInfo {
 	private String uId;
 	private String uPwd;
 	private String uEmail;
+	private String admin;
 	
 	public int getuNo() {
 		return uNo;
@@ -38,10 +39,15 @@ public class UserInfo {
 	public void setuEmail(String uEmail) {
 		this.uEmail = uEmail;
 	}
-	
+	public String getAdmin() {
+		return admin;
+	}
+	public void setAdmin(String admin) {
+		this.admin = admin;
+	}
 	@Override
 	public String toString() {
 		return "UserInfo [uNo=" + uNo + ", uName=" + uName + ", uId=" + uId + ", uPwd=" + uPwd + ", uEmail=" + uEmail
-				+ "]";
+				+ ", admin=" + admin + "]";
 	}
 }

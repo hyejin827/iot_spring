@@ -7,6 +7,7 @@
 <c:set var="ver" value="?version=1.0.0"/>
 <c:set var="rPath" value="${root}/resources"></c:set>
 <c:set var="pPath" value="${root}/path"></c:set>
+<c:set var="isLogin" value="${(empty sessionScope.isLogin)?false:sessionScope.isLogin}"/>
 
 <script src="${rPath}/ui/js/jquery-3.2.1.js${ver}"></script>
 <script src="${rPath}/ui/js/grid-obj.js${ver}"></script>
@@ -21,3 +22,8 @@
 <link rel="stylesheet" type="text/css" href="${rPath}/dx/fonts/font_roboto/roboto.css${ver}"/>
 <link rel="stylesheet" type="text/css" href="${rPath}/dx/dhtmlx.css${ver}"/>
 <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+
+<!-- Chrome, Safari, IE -->
+<link rel="shortcut icon" href="${rPath}/imgs/favicon.png">
+<!-- Firefox, Opera (Chrome and Safari say thanks but no thanks) -->
+<link rel="icon" href="${rPath}/imgs/favicon.png">
