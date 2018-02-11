@@ -53,7 +53,7 @@
 			} else if (id == "cancelBtn") {
 				form.clear();
 			} else if (id == "signupBtn") {
-
+				location.href = "${root}/path/user_info/signup";
 			}
 		});
 		if(${isLogin}){

@@ -15,13 +15,8 @@
     <ul class="menu__list">
       <li class="menu__item"><a href="${root}/" class="menu__link">Home</a></li>
       <li class="menu__item"><a href="${root}/path/user_info/list" class="menu__link">리스트</a></li>
-      <li class="menu__item">
-        <a href="" target="_blank" class="menu__link menu__link--social"><i class="fa fa-twitter"></i></a>
-      </li>
-      <li class="menu__item">
-        <a href="" target="_blank" class="menu__link menu__link--social">
-          <i class="fa fa-dribbble"></i></a>
-      </li>
+      <li class="menu__item"><a href="" class="menu__link menu__link--social"><i class="fa fa-twitter"></i></a></li>
+      <li class="menu__item"><a href="" class="menu__link menu__link--social"><i class="fa fa-dribbble"></i></a></li>
     </ul>
   </nav>
 </header>

@@ -24,10 +24,13 @@
 	var au = new AjaxUtil("${root}/userInfo/list",null,"GET","json"); //"json"
 	function callback(res){
 		mygrid.parse({data:res},"js"); //res.userInfoList
-		for(var i=1;i<=res.length;i++){
-			myGrid.setRowId(i,"id"+i);
-		}
 	}
+	
+	mygrid.attachEvent("onRowSelect", function(id,ind){
+		alert(mygrid.getRowData(id).uName);
+	      
+	});
+	
 	au.setCallbackSuccess(callback);
 	au.send();
 	
