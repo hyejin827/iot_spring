@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -7,19 +7,20 @@
 <title>Insert title here</title>
 </head>
 <style>
-    html, body {
-        width: 100%;      /*provides the correct work of a full-screen layout*/ 
-        height: 100%;     /*provides the correct work of a full-screen layout*/
-        overflow: hidden; /*hides the default body's space*/
-        margin: 0px;      /*hides the body's scrolls*/
-    }      
-    div.controls {
-         margin: 0px 10px;
-         font-size: 14px;
-         font-family: Tahoma;
-         color: #404040;
-         height: 80px;
-      }
+html, body {
+	width: 100%; /*provides the correct work of a full-screen layout*/
+	height: 100%; /*provides the correct work of a full-screen layout*/
+	overflow: hidden; /*hides the default body's space*/
+	margin: 0px; /*hides the body's scrolls*/
+}
+
+div.controls {
+	margin: 0px 10px;
+	font-size: 14px;
+	font-family: Tahoma;
+	color: #404040;
+	height: 80px;
+}
 </style>
 <script>
 var bodyLayout, aLay,dbTree,winF,popW; 
@@ -31,7 +32,7 @@ function connectionListCB(res){
 	  var level = dbTree.getLevel(id);
       if(level==2){
     	  var text = dbTree.getItemText(id);
-    	  //alert("${root}/connection/tables/"+ text + "/" + id);
+    	  //alert("${root}/connection/tables/"+ text + "/" + id);  /* /connection/tables/dbconnector/2_1 */
     	  var au = new AjaxUtil("${root}/connection/tables/"+ text + "/" + id,null,"get");
           au.send(tableListCB);
       }else if(level==3){
@@ -103,21 +104,21 @@ dhtmlxEvent(window,"load",function(){
    //popW.hide(); 
    popW.setText("Add Connection Info"); 
    var formObj = [
-              {type:"settings", offsetTop:12,name:"connectionInfo",labelAlign:"left"},
-            {type:"input",name:"ciName", label:"커넥션이름",required:true},
-            {type:"input",name:"ciUrl", label:"접속URL",required:true},
-            {type:"input",name:"ciPort", label:"PORT번호",validate:"ValidInteger",required:true},
-            {type:"input",name:"ciDatabase", label:"데이터베이스",required:true},
-            {type:"input",name:"ciUser", label:"유저ID",required:true},
-            {type:"password",name:"ciPwd", label:"비밀번호",required:true},
-            {type:"input",name:"ciEtc", label:"설명"},
+			{type:"settings", offsetTop:12,name:"connectionInfo",labelAlign:"left"},
+			{type:"input",name:"ciName", label:"커넥션이름",required:true},
+			{type:"input",name:"ciUrl", label:"접속URL",required:true},
+			{type:"input",name:"ciPort", label:"PORT번호",validate:"ValidInteger",required:true},
+			{type:"input",name:"ciDatabase", label:"데이터베이스",required:true},
+			{type:"input",name:"ciUser", label:"유저ID",required:true},
+			{type:"password",name:"ciPwd", label:"비밀번호",required:true},
+			{type:"input",name:"ciEtc", label:"설명"},
 			{type:"input", name:"uId", label:"uID", required : true},
-            {type: "block", blockOffset: 0, list: [
-               {type: "button", name:"saveBtn",value: "저장"},
-               {type: "newcolumn"},
-               {type: "button", name:"cancelBtn",value: "취소"}
-            ]}
-      ];
+			{type: "block", blockOffset: 0, list: [
+				{type: "button", name:"saveBtn",value: "저장"},
+				{type: "newcolumn"},
+				{type: "button", name:"cancelBtn",value: "취소"}
+				]}
+			];
    var form = popW.attachForm(formObj,true);
    popW.hide();
    
