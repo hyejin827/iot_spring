@@ -1,5 +1,7 @@
 package com.iot.spring.vo;
 
+import java.util.Arrays;
+
 public class ConnectionInfoVO {
 
 	private int ciNo;
@@ -11,6 +13,9 @@ public class ConnectionInfoVO {
 	private String ciPwd;
 	private String ciEtc;
 	private String uId;
+	private int id;
+	private String text;
+	private Object[] items;
 	
 	public int getCiNo() {
 		return ciNo;
@@ -66,11 +71,29 @@ public class ConnectionInfoVO {
 	public void setuId(String uId) {
 		this.uId = uId;
 	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getText() {
+		return text;
+	}
+	public void setText(String text) {
+		this.text = text;
+	}
+	public Object[] getItems() {
+		return items;
+	}
+	public void setItems(Object[] items) {
+		this.items = items;
+	}
 	
 	@Override
 	public String toString() {
 		return "ConnectionInfoVO [ciNo=" + ciNo + ", ciName=" + ciName + ", ciUrl=" + ciUrl + ", ciPort=" + ciPort
 				+ ", ciDatabase=" + ciDatabase + ", ciUser=" + ciUser + ", ciPwd=" + ciPwd + ", ciEtc=" + ciEtc
-				+ ", uId=" + uId + "]";
+				+ ", uId=" + uId + ", id=" + id + ", text=" + text + ", items=" + Arrays.toString(items) + "]";
 	}
 }

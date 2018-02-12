@@ -5,8 +5,16 @@
 <mapper namespace="connection_info">
 	<select id="selectConnectionInfo" parameterType="ci" resultType="ci">
 		select 
-		ciNo, ciName, ciUrl, ciPort, ciDatabase, ciUser, ciPwd, ciEtc
+		ciNo, ciName, ciUrl, ciPort, ciDatabase, ciUser, ciPwd, ciEtc, ciNo as id, ciName as text, uId
 		from connection_info
+		where uId=#{uId}
+	</select>
+	
+	<select id="selectConnectionInfoWithCiNo" parameterType="int" resultType="ci">
+		select 
+		ciNo, ciName, ciUrl, ciPort, ciDatabase, ciUser, ciPwd, ciEtc, ciNo as id, ciName as text, uId
+		from connection_info
+		where ciNo=#{ciNo}
 	</select>
 	
 	<select id="insertConnectionInfo" parameterType="ci">
@@ -24,7 +32,8 @@
 		(data_length+index_length)/1024 as tableSize 
 		from information_schema.tables
 		where table_schema=#{dbName}
-		and table_type='BASE TABLE';
+		and (table_type='BASE TABLE'
+		or table_type='SYSTEM VIEW');
 	</select>
 	
 	<select id="selectColumn" resultType="cvo" parameterType="string">

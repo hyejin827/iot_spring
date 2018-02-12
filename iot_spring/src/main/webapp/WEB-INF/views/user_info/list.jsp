@@ -28,7 +28,6 @@
 	
 	mygrid.attachEvent("onRowSelect", function(id,ind){
 		alert(mygrid.getRowData(id).uName);
-	      
 	});
 	
 	au.setCallbackSuccess(callback);

@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.iot.spring.common.dbcon.DBConnector;
 import com.iot.spring.dao.ConnectionDAO;
 import com.iot.spring.vo.ColumnVO;
 import com.iot.spring.vo.ConnectionInfoVO;
@@ -21,14 +22,19 @@ public class ConnectionDAOImpl implements ConnectionDAO {
 	
 	@Override
 	public List<ConnectionInfoVO> selectConnectionList(ConnectionInfoVO ci) {
-		// TODO Auto-generated method stub
-		return null;
+		List<ConnectionInfoVO> result = null;
+		SqlSession ss= ssf.openSession();
+		result = ss.selectList("connection_info.selectConnectionInfo", ci);
+		ss.close();
+		return result;
 	}
 
 	@Override
-	public ConnectionInfoVO selectConnection(ConnectionInfoVO ci) {
-		// TODO Auto-generated method stub
-		return null;
+	public ConnectionInfoVO selectConnection(int ciNo) {
+		SqlSession ss= ssf.openSession();
+		ConnectionInfoVO ci = ss.selectOne("connection_info.selectConnectionInfoWithCiNo", ciNo);
+		ss.close();
+		return ci;
 	}
 
 	@Override
@@ -40,20 +46,14 @@ public class ConnectionDAOImpl implements ConnectionDAO {
 	}
 
 	@Override
-	public List<Map<String, Object>> selectDatabaseList() {
-		List<Map<String,Object>> result = null;
-		SqlSession ss= ssf.openSession();
-		result = ss.selectList("connection_info.selectDatabase");
-		ss.close();
-		return result;
+	public List<Map<String, Object>> selectDatabaseList(SqlSession ss) throws Exception {
+		return ss.selectList("connection_info.selectDatabase");
 	}
 
 	@Override
-	public List<TableVO> selectTableList(String dbName) {
+	public List<TableVO> selectTableList(SqlSession ss, String dbName) {
 		List<TableVO> result = null;
-		final SqlSession ss= ssf.openSession();
 		result = ss.selectList("connection_info.selectTable", dbName);
-		ss.close();
 		return result;
 	}
 

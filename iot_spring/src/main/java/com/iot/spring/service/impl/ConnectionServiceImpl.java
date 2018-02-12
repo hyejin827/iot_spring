@@ -3,9 +3,13 @@ package com.iot.spring.service.impl;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.iot.spring.common.dbcon.DBConnector;
 import com.iot.spring.dao.ConnectionDAO;
 import com.iot.spring.service.ConnectionService;
 import com.iot.spring.vo.ColumnVO;
@@ -20,8 +24,7 @@ public class ConnectionServiceImpl implements ConnectionService{
 
 	@Override
 	public List<ConnectionInfoVO> getConnectionList(ConnectionInfoVO ci) {
-		// TODO Auto-generated method stub
-		return null;
+		return condao.selectConnectionList(ci);
 	}
 
 	@Override
@@ -41,11 +44,16 @@ public class ConnectionServiceImpl implements ConnectionService{
 	}
 
 	@Override
-	public List<Map<String, Object>> getDatabaseList() {
-		List<Map<String,Object>> dbList = condao.selectDatabaseList();
+	public List<Map<String, Object>> getDatabaseList(HttpSession hs, int ciNo) throws Exception {
+		ConnectionInfoVO ci = condao.selectConnection(ciNo);
+		hs.setAttribute("ci", ci);
+		DBConnector dbc = new DBConnector(ci);
+		SqlSession ss = dbc.getSqlSession();
+		hs.setAttribute("sqlSession", dbc.getSqlSession());
+		List<Map<String,Object>> dbList = condao.selectDatabaseList(ss);
 		int idx = 0;
 		for(Map<String,Object> mDb : dbList) {
-			mDb.put("id", ++idx);
+			mDb.put("id", ciNo + "_" + (++idx));
 			mDb.put("text", mDb.get("Database"));
 			mDb.put("items", new Object[] {});
 		}
@@ -53,8 +61,9 @@ public class ConnectionServiceImpl implements ConnectionService{
 	}
 
 	@Override
-	public List<TableVO> getTableList(String dbName) {
-		return condao.selectTableList(dbName);
+	public List<TableVO> getTableList(HttpSession hs, String dbName) {
+		SqlSession ss = (SqlSession)hs.getAttribute("sqlSession");
+		return condao.selectTableList(ss, dbName);
 	}
 
 	@Override

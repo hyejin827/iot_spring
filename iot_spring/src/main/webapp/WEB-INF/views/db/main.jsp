@@ -22,32 +22,116 @@
       }
 </style>
 <script>
-var bodyLayout;
-function callback(res){
+var bodyLayout, aLay,dbTree,winF,popW; 
+function connectionListCB(res){
+   dbTree = aLay.attachTreeView({
+       items: res.list
+   });
+   dbTree.attachEvent("onDblClick",function(id){
+	  var level = dbTree.getLevel(id);
+      if(level==2){
+    	  var text = dbTree.getItemText(id);
+    	  //alert("${root}/connection/tables/"+ text + "/" + id);
+    	  var au = new AjaxUtil("${root}/connection/tables/"+ text + "/" + id,null,"get");
+          au.send(tableListCB);
+      }else if(level==3){
+    	  var text = dbTree.getLevel(id);
+      }
+   });
+}
+function addConnectionCB(loader,res){
+	var res = JSON.parse(res);
+	alert(res.msg);
+}
+function tableListCB(res){
+	var parentId = res.parentId;
+	var i=1;
+	for(var table of res.list){
+		var id = parentId + "_" + i++;
+		var text = table.tableName;
+		if(table.tableComment!=""){
+			text += "[" + table.tableComment + "]";
+		}
+		text += ":"+ table.tableSize + "KB"; 
+		dbTree.addItem(id, text, parentId);
+	}
+	dbTree.openItem(parentId);
+}
+
+function dbListCB(res){
 	console.log(res);
-	dbTree = aLay.attachTreeView({
-		items: res.dbList
-		});
-	dbTree.setImagePath("${rPath}/dx/skins/web/imgs/dhxtree_web/");
-	dbTree.enableDragAndDrop(true);
+	if(res.error){
+		alert(res.error);
+		return;
+	}
+	var parentId = res.parentId;
+	for(var db of res.list){
+		var id = db.id;
+		var text = db.text;
+		dbTree.addItem(id, text, parentId);
+	}
+	dbTree.openItem(parentId);
 }
 
 dhtmlxEvent(window,"load",function(){
-	bodyLayout = new dhtmlXLayoutObject(document.body,"3L");
-	aLay = bodyLayout.cells("a");
-	aLay.setWidth(300);
-	aLay.setText("Connection Info List");
-	var aToolbar = aLay.attachToolbar();
-	aToolbar.addButton("adddb",1,"add Connector");
-	aToolbar.addButton("condb",2,"Connection");
-	aToolbar.attachEvent("onClick",function(id){
-		alert(id);
-	})
-	var au = new AjaxUtil("${root}/connection/db_list",null,"get");
-	au.setCallbackSuccess(callback);
-	au.send(); 
-})
 
+   bodyLayout = new dhtmlXLayoutObject(document.body,"3L");
+   aLay = bodyLayout.cells("a");
+   aLay.setWidth(300);
+   aLay.setText("Connection Info List");
+   var aToolbar = aLay.attachToolbar();
+   aToolbar.addButton("addcon",1,"add Connector");
+   aToolbar.addButton("condb",2,"Connection");
+   aToolbar.attachEvent("onClick",function(id){
+      if(id=="condb"){
+         var rowId =dbTree.getSelectedId();
+         if(!rowId){
+            alert("접속할 커넥션을 선택해주세요.");
+            return;
+         }
+         var au = new AjaxUtil("${root}/connection/db_list/" + rowId,null,"get");
+         au.send(dbListCB); 
+      }else if(id=="addcon"){
+         popW.show();
+      }
+   })
+   var au = new AjaxUtil("${root}/connection/list",null,"get");
+   au.send(connectionListCB); 
+
+   winF = new dhtmlXWindows();
+   popW = winF.createWindow("win1",20,30,320,300);
+   //popW.hide(); 
+   popW.setText("Add Connection Info"); 
+   var formObj = [
+              {type:"settings", offsetTop:12,name:"connectionInfo",labelAlign:"left"},
+            {type:"input",name:"ciName", label:"커넥션이름",required:true},
+            {type:"input",name:"ciUrl", label:"접속URL",required:true},
+            {type:"input",name:"ciPort", label:"PORT번호",validate:"ValidInteger",required:true},
+            {type:"input",name:"ciDatabase", label:"데이터베이스",required:true},
+            {type:"input",name:"ciUser", label:"유저ID",required:true},
+            {type:"password",name:"ciPwd", label:"비밀번호",required:true},
+            {type:"input",name:"ciEtc", label:"설명"},
+			{type:"input", name:"uId", label:"uID", required : true},
+            {type: "block", blockOffset: 0, list: [
+               {type: "button", name:"saveBtn",value: "저장"},
+               {type: "newcolumn"},
+               {type: "button", name:"cancelBtn",value: "취소"}
+            ]}
+      ];
+   var form = popW.attachForm(formObj,true);
+   popW.hide();
+   
+   form.attachEvent("onButtonClick",function(id){
+      if(id=="saveBtn"){
+         if(form.validate()){
+            form.send("${root}/connection/insert", "post",addConnectionCB);
+         }
+      }else if(id=="cancelBtn"){
+         form.clear();
+      }
+   });
+   
+})
 </script>
 <body>
 

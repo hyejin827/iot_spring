@@ -6,8 +6,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>회원가입</title>
 </head>
-<body>
-
 <style>
    div#winVP {
       position: relative;
@@ -16,6 +14,7 @@
       margin: 10px;
    }
 </style>
+<body>
 <script>
    var winF,popW;
    $(document).ready(function(){
@@ -46,7 +45,7 @@
 			{type: "newcolumn"},
 			{type: "button", name:"cancelBtn",value: "취소"},
 			{type: "newcolumn"},
-			{type: "button", name:"signupBtn",value: "돌아가기"}
+			{type: "button", name:"backBtn",value: "돌아가기"}
      		]}
 		];
 		var form = popW.attachForm(formObj, true);
@@ -58,8 +57,8 @@
 				}
 			} else if (id == "cancelBtn") {
 				form.clear();
-			} else if (id == "signupBtn") {
-
+			} else if (id == "backBtn") {
+				location.href = "${root}/";
 			}
 		});
 		/* if(${isLogin}){
